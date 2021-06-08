@@ -1,4 +1,4 @@
-##Linked Dataset Profiling Tool
+# Linked Dataset Profiling Tool
 
 The Linked Dataset Profiling tool is an implementation of the approach proposed in [1]. It's main purpose is generating 
 structured profiles of Linked Datasets. A profile in this case representes a graph, consisting of linked datasets, 
@@ -6,31 +6,24 @@ resource instances and topics. The topics are DBpedia categories, which are extr
 Disambiguation process by analysing textual literals from resources. The main steps which are executed from the 
 profiling tool are: 
 
-1. Dataset metadata extraction from DataHub
-2. Resource instance extraction 
-3. Entity and topic extraction through NED from extracted resources using NED tools like Spotlight or TagMe!
-4. Profile graph construction and topic ranking
-5. Exporting of profiles in JSON format.
+1. **Dataset metadata extraction from DataHub**
 
-The individual steps are explained in detail in [1], here we provide a brief overview of the output from each step. 
-In step (1) the input required from the tool is a dataset id, extracted from DataHub, i.e. lak-dataset 
-(http://datahub.io/dataset/lak-dataset) or a group id of datasets, i.e. lodcloud (http://datahub.io/organization/lodcloud). 
-As an output the LDP tool extracts the metadata from the datasets, such as the SPARQL endpoint, name, maintainer etc., 
-and stores in a directory given by the user. In step (2) LDP extracts resource instances from the given datasets in (1).
- It has the option to sample the extracted resources, based on three sampling strategies: random, weighted and centrality 
- (see [1]). Furthermore, the user can define what percentage of resources he/she wants to extract, i.e. 5,10,...,95% 
- of resources. In step (3) from the extracted resources, the tool performs the NED process by analysing the textual 
- literals of resources. Here, one can define what datatype properties are of interest for the NED process, which can 
- be fed in into the tool during the process. In this step, LDP extracts entities as 
- DBpedia entities, and the topics from the extracted entities through the 
- datatype property dcterms:subject. The last step of the LDP tool, is step (4) where from the extracted datasets 
- and their corresponding sampled resources, and the extracted entities and topics in step (3), 
- we build the dataset topic graph as our profile. The topics are ranked for their relevance to the respective 
- datasets by different graphical models that can be fed into the LDP tool by the user, i.e. prank, kstep, hits, 
- for PageRank with Priors, K-Step Markov and HITS, respecitvely. Finally, after ranking the topics for their 
- relevance, the LDP tool can export the profiles into JSON format, such that they can be further analysed or exported 
- into RDF or other formats. For RDF we provide the tool which exposes the profiles into RDF using the VoID and VoL schema.
+the input required from the tool is a dataset id, extracted from DataHub, i.e. [lak-dataset](http://datahub.io/dataset/lak-dataset) or a group id of datasets, i.e. [lodcloud](http://datahub.io/organization/lodcloud).
+As an output the LDP tool extracts the metadata from the datasets, such as the SPARQL endpoint, name, maintainer etc., and stores in a directory given by the user. 
 
+2. **Resource instance extraction**
+
+LDP extracts resource instances from the given datasets in (1). It has the option to sample the extracted resources, based on three sampling strategies: random, weighted and centrality (see [1]). Furthermore, the user can define what percentage of resources he/she wants to extract, i.e. 5,10,...,95% of resources.
+
+3. **Entity and topic extraction through NED from extracted resources using NED tools like Spotlight or TagMe!**
+
+From the extracted resources, the tool performs the NED process by analysing the textual literals of resources. Here, one can define what datatype properties are of interest for the NED process, which can be fed in into the tool during the process. In this step, LDP extracts entities as DBpedia entities, and the topics from the extracted entities through the datatype property `dcterms:subject`
+
+4. **Profile graph construction and topic ranking**
+
+The last step of the LDP tool, is step (4) where from the extracted datasets and their corresponding sampled resources, and the extracted entities and topics in step (3), we build the dataset topic graph as our profile. The topics are ranked for their relevance to the respective datasets by different graphical models that can be fed into the LDP tool by the user, i.e. prank, kstep, hits, for PageRank with Priors, K-Step Markov and HITS, respecitvely. Finally, after ranking the topics for their relevance, the LDP tool can export the profiles into JSON format, such that they can be further analysed or exported into RDF or other formats. For RDF we provide the tool which exposes the profiles into RDF using the VoID and VoL schema.
+
+5. **Exporting of profiles in JSON format.**
 
 In order to run the LDP tool, it requires few variables to be added in its config file. We show here the possible input values for the different variables (where with "|" we show all acceptable and recognisable values by the tool), wheres for others we provide a simple textual description. See below for the sample config file. The defined variables and values should be stored in a separate file and should be given as an inline argument to the LDP tool, e.g. 
 
@@ -38,8 +31,7 @@ In order to run the LDP tool, it requires few variables to be added in its confi
 java -jar ldp.jar config.ini
 ```
 
-###Example config values
-=========================
+### Example config values
 
 Only one value at at time, 0 - is for step (1), 1 for step (2), and so on
 
